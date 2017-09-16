@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class FreeagentConfig(AppConfig):
+class FreeAgentConfig(AppConfig):
     name = 'freeAgent'
