@@ -1,9 +1,38 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import Http404
+from django.http import HttpResponse
+from django.template import loader
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from .models import Project, Member, Review
+from django.views import generic
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the freeAgent index.")
-
-
-# Create your views here.
+##Not sure about the use of DetailView Vs ListView. 
+##Documentation says DetailView is for when we want to add specifics to the table.
+class accepted_projects(generic.DetailView):
+    template_name='templates/accepted_projects.html'
+    model=Project
+    
+class all_projects(generic.ListView):
+    template_name='templates/all_projects.html'
+    model=Project
+    
+class create_project(generic.ListView):
+    template_name='templates/create_project.html'   
+    model=Project
+    
+class end_client_projects(generic.DetailView):
+    template_name='templates/end_client_projects.html'
+    model=Project
+    
+class login(generic.ListView):
+    template_name='templates/login.html'
+    model=Member
+    
+class register(generic.ListView):
+    template_name='templates/register.html'
+    model=Member
