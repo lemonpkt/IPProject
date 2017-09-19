@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator 
 from decimal import *
 
+
 class Member(models.Model):
     user_name = models.CharField(primary_key=True, max_length=50)
     email = models.CharField(max_length=50, unique=True)
@@ -16,8 +17,7 @@ class Member(models.Model):
     def __str__(self):
         return self.first_name
 
-##TODO:Need to work out how average rating will be constructed
-##average_rating
+
 
 class Project(models.Model):
     def creation_date(self):
