@@ -13,7 +13,7 @@ from django.views import generic
 
 ##Not sure about the use of DetailView Vs ListView. 
 ##Documentation says DetailView is for when we want to add specifics to the table.
-class accepted_projects(generic.DetailView):
+class accepted_projects(generic.ListView):
     template_name='templates/accepted_projects.html'
     model=Project
     
@@ -25,7 +25,7 @@ class create_project(generic.ListView):
     template_name='templates/create_project.html'   
     model=Project
     
-class end_client_projects(generic.DetailView):
+class end_client_projects(generic.ListView):
     template_name='templates/end_client_projects.html'
     model=Project
     
