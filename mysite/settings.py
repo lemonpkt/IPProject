@@ -30,7 +30,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-	'freeAgent.apps.FreeAgentConfig',
+	'bootstrap3',
+    ##https://django-bootstrap3.readthedocs.io/en/latest/quickstart.html
+    'freeAgent.apps.FreeAgentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
