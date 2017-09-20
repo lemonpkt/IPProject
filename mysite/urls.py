@@ -7,4 +7,6 @@ urlpatterns = [
 	
 	url(r'^freeAgent/',include('freeAgent.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    
+
 ]
