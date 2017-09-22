@@ -22,7 +22,7 @@ class accepted_projects(generic.ListView):
                    
             
 class all_projects(generic.ListView):
-    template_name='templates/all_projects.html'
+    template_name='all_projects.html'
     model=Project
     
     def get_queryset(self):
@@ -31,14 +31,14 @@ class all_projects(generic.ListView):
     
     
 class create_project(generic.ListView):
-    template_name='templates/create_project.html'   
+    template_name='create_project.html'   
     model=Project
     
     
     
     
 class end_client_projects(generic.ListView):
-    template_name='templates/end_client_projects.html'
+    template_name='end_client_projects.html'
     model=Project
     
     def get_queryset(self):
@@ -47,11 +47,11 @@ class end_client_projects(generic.ListView):
     
     
 class login(generic.ListView):
-    template_name='templates/login.html'
+    template_name='login.html'
     model=Member
     
     
     
 class register(generic.ListView):
-    template_name='templates/register.html'
+    template_name='register.html'
     model=Member
