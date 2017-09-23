@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator 
 from decimal import *
 
-
+##Note:Category Client=True
 class Member(models.Model):
     user_name = models.CharField(primary_key=True, max_length=50)
     email = models.CharField(max_length=50, unique=True)
@@ -34,7 +34,7 @@ class Project(models.Model):
     worker = models.ForeignKey(Member, related_name='+')
     
     
-    # Status could be one of four. (New=1, started=2, completed=3 & closed=4)
+    # Status could be one of four. (New=1, Accdepted=2, completed=3 & closed=4)
     status = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
     
     description = models.CharField(max_length=300)
