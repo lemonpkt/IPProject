@@ -1,14 +1,29 @@
-from django.conf.urls import url
-from . import views
+"""freeAgent URL Configuration
 
-app_name='freeAgent'
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url, include
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^accepted_projects$', views.accepted_projects.as_view(), name='accepted_projects'),
-    url(r'^all_projects$', views.all_projects.as_view(), name='all_projects'),
-    url(r'^create_projects$', views.create_project.as_view(), name='create_project'),
-    url(r'^end_client_projects$', views.end_client_projects.as_view(), name='end_client_projects'),
-    url(r'^login$', views.login.as_view(), name='login'),
-    url(r'^register$', views.register.as_view(), name='register'),
-   
+    url(r'^admin/', admin.site.urls),
+    url(r'^freeAgentApp/', include ('freeAgentApp.urls'))
+    
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
