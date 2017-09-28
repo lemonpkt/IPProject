@@ -1,0 +1,11 @@
+{% extends 'freeAgentApp/base.html' %}
+{% block title %} Project Detail {% endblock %}
+    
+    {% block body %}
+        <h1>Project List</h1>
+        <h3> Title: {{project.title}}</h3>
+        <h3> Cost: {{project.cost}}</h3>
+        <h3> status: {{project.status}}</h3>
+        <h3> Description: {{project.description}}</h3>
+        <h3> Posted Date: {{project.pub_date}}</h3>
+    {% endblock %}
