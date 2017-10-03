@@ -63,7 +63,7 @@ class DetailView(generic.DetailView):
     
 class ProjectCreate(CreateView):
     model=Project
-    fields=['title','cost','description','status','pub_date']
+    fields=['title','cost','description','status','file_type']
 
 class ProjectUpdate(UpdateView):
     model=Project
