@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
     #/freeAgentApp/login
     url(r'^login/$',views.Login.as_view(), name='login'),
-    #jdfakjsdl
+    #／freeAgentApp／logout
     url(r'^logout/$',views.LogOut.as_view(), name='logout'),
     #/freeAgentApp/13/
     url(r'^(?P<pk>[0-9]+)/$',views.DetailView.as_view(), name='detail'),
