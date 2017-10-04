@@ -6,7 +6,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 from django.views.generic import View
-from .forms import UserForm
+from .forms import UserForm, LoginForm
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 class UserFormView(View):
     form_class=UserForm
@@ -72,3 +74,15 @@ class ProjectUpdate(UpdateView):
 class ProjectDelete(DeleteView):
     model=Project
     success_url = reverse_lazy('freeAgentApp:index')
+
+
+class Login(LoginView):
+    form_class = LoginForm
+    template_name = "freeAgentApp/login.html"
+    redirect_authenticated_user = True
+
+
+
+class LogOut(LogoutView):
+    # next_page = 'login'
+    pass
