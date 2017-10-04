@@ -67,7 +67,7 @@ class ProjectCreate(CreateView):
 
 class ProjectUpdate(UpdateView):
     model=Project
-    fields=['title','cost','description','status','pub_date']
+    fields=['title','cost','description','status']
     
 class ProjectDelete(DeleteView):
     model=Project

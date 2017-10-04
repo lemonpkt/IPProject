@@ -10,12 +10,12 @@ class Project(models.Model):
 
     title = models.CharField(max_length=100)
     cost = models.DecimalField(max_digits=15, decimal_places=2)
-    pub_date = timezone.now()
+    pub_date =timezone.now()
 
     #Status could be one of four. (New=1, Accdepted=2, completed=3 & closed=4)  
     status = models.IntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(4)])   
     description = models.CharField(max_length=300)
-    file_type=models.FileField()
+    file_type=models.FileField(null=True,blank=True)
     
     def get_absolute_url(self):
         return reverse('freeAgentApp:detail',kwargs={'pk':self.pk})
