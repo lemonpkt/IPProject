@@ -1,17 +1,7 @@
-<!--Login page for all users-->
-<!doctype html>
-<html lang ="en-US">
-
-<head>
-    <!--The title attribute is the text displayed in the browsers tab-->
-    <title>Login</title>
-    <meta charset = "UTF-8">
-</head>
-<body>
-    <p style ="color:blue;font-family:verdana;"> This is the login page</P>
-    <br/>
-    <img src="../../static/freeAgentApp/images/CatLogo.jpg" alt="logo" height="200"/>
-    <form action="" method="post">
+{% extends 'freeAgentApp/login_base.html' %}
+ {% block body %}
+    <img src="../../static/freeAgentApp/images/CatLogo.jpg" alt="logo" height="200" align = "middle|top"/>
+    <form action="" method="post" style = "vertical-align:middle">
         {% csrf_token %}
         {{ form.username.label_tag }}
         {{ form.username }}
@@ -21,8 +11,7 @@
         {{ form.password }}
         {{ form.errors }}
         <br/>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" style = "vertical-align:middle">
     </form>
-    <a href="{#% url 'password_reset' %#}"><p>Lost password?</p></a>
-</body>
-</html>
+    <a href="{% url 'freeAgentApp:register' %}" style = "vertical-align:middle"><p>Register</p></a>
+{% endblock %}
