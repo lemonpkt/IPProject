@@ -1,0 +1,28 @@
+<!--Login page for all users-->
+<!doctype html>
+<html lang ="en-US">
+
+<head>
+    <!--The title attribute is the text displayed in the browsers tab-->
+    <title>Login</title>
+    <meta charset = "UTF-8">
+</head>
+<body>
+    <p style ="color:blue;font-family:verdana;"> This is the login page</P>
+    <br/>
+    <img src="../../static/freeAgentApp/images/CatLogo.jpg" alt="logo" height="200"/>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {{ form.errors }}
+        <br/>
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {{ form.errors }}
+        <br/>
+        <input type="submit" value="submit">
+    </form>
+    <a href="{#% url 'password_reset' %#}"><p>Lost password?</p></a>
+</body>
+</html>
