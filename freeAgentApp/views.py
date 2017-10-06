@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from .forms import UserForm, LoginForm
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class UserFormView(View):
@@ -49,11 +50,8 @@ class UserFormView(View):
                 return redirect('freeAgentApp:index')          
             return render(request,self.template_name,{'form':form})
                         
-                
-            
 
-
-class IndexView(generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
     template_name='freeAgentApp/index.html'
     
     def get_queryset(self):
