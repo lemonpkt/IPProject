@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ProjectSerializer,ReviewSerializer, UserProfileSerializer
+from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 
 
 class UserFormView(View):
@@ -86,7 +86,7 @@ class Login(LoginView):
 
 
 
-class LogOut(logout):
-    # next_page = 'login'
+class LogOut():
+   
     def logout (self,request):
-    pass
+        pass

@@ -1,5 +1,5 @@
-from rest_framework import serializer
-from .models import Project,Review
+from rest_framework import serializers
+from .models import Project,Review,UserProfile
 
 class ProjectSerializer(serializers.ModelSerializer):
 
