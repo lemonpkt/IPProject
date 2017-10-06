@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator 
 from decimal import *
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User,AbstractUser
 
 
 class Project(models.Model):
@@ -32,3 +33,8 @@ class Review(models.Model):
 
     def __str__(self):
         return "%s" % self.project_rating
+
+
+class UserProfile(AbstractUser):
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Identification = models.CharField(max_length=10, choices=(('F', 'freeAgent'), ('C', 'Client')))
