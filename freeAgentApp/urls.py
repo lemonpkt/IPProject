@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from rest_frameworks.urlpatterns import format_suffix_patterns
 
 app_name='freeAgentApp'
 
@@ -23,3 +24,7 @@ urlpatterns = [
     url(r'project/(?P<pk>[0-9]+)/delete/$',views.ProjectDelete.as_view(), name='deleteProject'),
     
 ]
+
+
+
+urlpatterns =  format_suffix_patterns(urlpatterns)

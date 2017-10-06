@@ -1,5 +1,5 @@
 from django.views import generic
-from .models import Project,Review
+from .models import Project,Review,UserProfile
 from django.views.generic import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -7,8 +7,13 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from .forms import UserForm, LoginForm
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 
 
 class UserFormView(View):
@@ -81,6 +86,7 @@ class Login(LoginView):
 
 
 
-class LogOut(LogoutView):
+class LogOut(logout):
     # next_page = 'login'
+    def logout (self,request):
     pass
