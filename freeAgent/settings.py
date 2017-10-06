@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'freeAgentApp.apps.FreeagentappConfig',
+    'freeAgentApp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +128,4 @@ LOGIN_URL = '/freeAgentApp/login'
 LOGIN_REDIRECT_URL = reverse_lazy('freeAgentApp:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('freeAgentApp:login')
 
+AUTH_USER_MODEL = 'freeAgentApp.UserProfile'
