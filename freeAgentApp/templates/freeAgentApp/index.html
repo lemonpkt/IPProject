@@ -4,23 +4,53 @@
 
 {% block body %}
 
-    
-    <h1>Project List</h1>
-    <ul>
-        {% for project in object_list %}
-        <!--Details-->
-        <li><a href="{% url 'freeAgentApp:detail' project.id %}" class="btn btn-primary btn-sm">{{ project.title}}</a>
-         
-        <!--Delete-->
-        <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method = "post" style=" display: inline;">
-           {%csrf_token%}
-           <input type="hidden" name="project_id" value="{{project.id}}"?>
-           <button type "submit" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-trash"></span>
-        </form>
-        </li>
-        {% endfor %}
-      
+
+<!--<div class="jumbotron container">-->
+<!--<h3>Project List</h3>-->
+<!--</div>-->
+<div class="page-header">
+    <div class="container"><h3>My Created Projects</h3></div>
+</div>
+
+
+{% for project in object_list %}
+<!--Details-->
+<ul>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <div class="container">
+                <h4><a href="{% url 'freeAgentApp:detail' project.id %}">{{project.title}}</a></h4>
+                <h6>Cost: {{project.cost}}</h6>
+                <h6>Description: {{project.description}}</h6>
+                <h6> Status:
+                    {% if project.status == 1 %} New Project
+
+                    {% elif project.status == 2 %} Accepted
+
+                    {% elif project.status == 3 %} Pending Approval
+
+                    {% elif project.status == 4 %} Completed
+
+                    {% endif %}
+                </h6>
+
+                <!--<h6>Project Status: {{project.status}}</h6>-->
+                <!--Delete-->
+                <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method="post"
+                      style=" display: inline;">
+                    {%csrf_token%}
+                    <!--<input type="Button" name="project_id" value="{{project.id}}">-->
+                    <button type="submit" class="btn btn-default btn-sm"> Delete
+                        <span class="glyphicon glyphicon-trash"></span></button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</ul>
+
+
+{% endfor %}
+
 {% endblock %}
-
-
