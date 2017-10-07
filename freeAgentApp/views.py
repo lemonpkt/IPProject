@@ -1,14 +1,21 @@
 from django.views import generic
-from .models import Project,Review
+from .models import Project,Review,UserProfile
 from django.views.generic import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
-from django.views.generic import View
+#from django.views.generic import View
 from .forms import UserForm, LoginForm
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
+from django.contrib.auth.models import User,AbstractUser
+
 
 
 class UserFormView(View):
@@ -51,17 +58,18 @@ class UserFormView(View):
             return render(request,self.template_name,{'form':form})
                         
 
-class IndexView(LoginRequiredMixin, generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView ):
     template_name='freeAgentApp/index.html'
     
     def get_queryset(self):
         return Project.objects.all()
+
         
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
     
-class ProjectCreate(CreateView):
+class ProjectCreate(LoginRequiredMixin,CreateView):
     model=Project
     fields=['title','cost','description','status','file_type']
 
@@ -81,6 +89,10 @@ class Login(LoginView):
 
 
 
+
+
 class LogOut(LogoutView):
     # next_page = 'login'
     pass
+
+
