@@ -36,5 +36,5 @@ class Review(models.Model):
 
 
 class UserProfile(AbstractUser):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
     Identification = models.CharField(max_length=10, choices=(('F', 'freeAgent'), ('C', 'Client')))
