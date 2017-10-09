@@ -62,7 +62,6 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
     template_name='freeAgentApp/index.html'
     
     def get_queryset(self):
-        #TODO: Test
         # Filter by username if the type of user is client
         user = self.request.user
         if user.Identification == 'C':
