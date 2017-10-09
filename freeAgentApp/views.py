@@ -62,7 +62,13 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
     template_name='freeAgentApp/index.html'
     
     def get_queryset(self):
-        return Project.objects.all()
+        #TODO: Test
+        # Filter by username if the type of user is client
+        user = self.request.user
+        if user.Identification == 'C':
+            return Project.objects.filter(client=user)
+        else:
+            return Project.objects.all()
 
         
 class DetailView(LoginRequiredMixin,generic.DetailView):
@@ -72,6 +78,18 @@ class DetailView(LoginRequiredMixin,generic.DetailView):
 class ProjectCreate(LoginRequiredMixin,CreateView):
     model=Project
     fields=['title','cost','description','status','file_type']
+
+    def form_valid(self, form):
+        """Called when a form is valid and a new project is about to be saved."""
+        # Calls default form_valid() method and saves a new project in self.object
+        response = super(ProjectCreate, self).form_valid(form)
+
+        # Set the project's client (the user that created the project) to be the current user
+        self.object.client = self.request.user
+        self.object.save()
+
+        # Required by the CreateView view to return the reponse objects
+        return response
 
 class ProjectUpdate(UpdateView):
     model=Project

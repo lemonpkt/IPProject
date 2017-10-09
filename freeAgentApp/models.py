@@ -6,6 +6,10 @@ from decimal import *
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User,AbstractUser
 
+class UserProfile(AbstractUser):
+    
+    Identification = models.CharField(max_length=10, choices=(('F', 'freeAgent'), ('C', 'Client')))
+
 
 class Project(models.Model):
 
@@ -17,6 +21,8 @@ class Project(models.Model):
     status = models.IntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(4)])   
     description = models.CharField(max_length=300)
     file_type=models.FileField(null=True,blank=True)
+
+    client = models.ForeignKey(UserProfile, null=True, blank=True)
     
     def get_absolute_url(self):
         return reverse('freeAgentApp:detail',kwargs={'pk':self.pk})
@@ -33,10 +39,3 @@ class Review(models.Model):
 
     def __str__(self):
         return "%s" % self.project_rating
-
-
-class UserProfile(AbstractUser):
-    
-    Identification = models.CharField(max_length=10, choices=(('F', 'freeAgent'), ('C', 'Client')))
-
-    
