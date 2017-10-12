@@ -24,10 +24,12 @@ class UserFormView(View):
 
     #New form
     def get(self,request):
-        form=self.form_class(None)
+        if request.user.is_authenticated():
+            return redirect('freeAgentApp:index')
+
+        form = self.form_class()
         return render(request, self.template_name,{'form':form})
-            
-        
+
         
     #Completed form
     def post(self,request):
@@ -40,22 +42,28 @@ class UserFormView(View):
             #Get cleaned noramlised data - i.e. date entries etc
             username=form.cleaned_data['username']
             password= form.cleaned_data['password']
-                
-            #Change user password
-            user.set_password(password)
-            user.save()
-                
-            #This retruns the USer objects if authentication is correct
-            user=authenticate(username=username,password=password)
-                
-            if user is not None:
-                if user.is_active:
-                    login(request,user)
-                        
-                        #request.user.username
-                        #request.user.email
-                return redirect('freeAgentApp:index')          
-            return render(request,self.template_name,{'form':form})
+            try:
+                UserProfile.objects.get(username=username)
+
+                #Change user password
+            except UserProfile.DoesNotExist:
+                user.set_password(password)
+                user.save()
+
+                #This retruns the USer objects if authentication is correct
+                user=authenticate(username=username,password=password)
+
+                if user is not None:
+                    if user.is_active:
+                        login(request,user)
+
+                            #request.user.username
+                            #request.user.email
+                    return redirect('freeAgentApp:index')
+                return render(request,self.template_name,{'form':form})
+
+        return render(request, self.template_name, {'form': form})
+
                         
 
 class IndexView(LoginRequiredMixin, generic.ListView ):
