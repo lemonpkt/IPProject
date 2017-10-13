@@ -1,0 +1,45 @@
+{% extends 'freeAgentApp/base.html' %}
+{% block title %} A Projects {% endblock %}
+
+
+{% block body %}
+
+
+<!--<div class="jumbotron container">-->
+<!--<h3>Project List</h3>-->
+<!--</div>-->
+<div class="page-header">
+   <div class="container"><h3>FreeAgent - Accepted Projects</h3></div>
+</div>
+
+
+{% for project in object_list %}
+<!--Details-->
+<ul>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <div class="container">
+                <h4><a href="{% url 'freeAgentApp:detail' project.id %}">{{project.title}}</a></h4>
+                <h6>Cost: {{project.cost}}</h6>
+                <h6>Description: {{project.description}}</h6>
+                <h6> Status:
+                    {% if project.status == 1 %} New Project
+
+                    {% elif project.status == 2 %} Accepted
+
+                    {% elif project.status == 3 %} Pending Approval
+
+                    {% elif project.status == 4 %} Completed
+
+                    {% endif %}
+                </h6>              
+            </div>
+
+        </div>
+    </div>
+</ul>
+
+
+{% endfor %}
+
+{% endblock %}
