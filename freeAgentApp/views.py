@@ -76,7 +76,22 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
             return Project.objects.filter(client=user)
         else:
             return Project.objects.all()
-
+      
+class WorkerView(LoginRequiredMixin, generic.ListView ):
+    model=Project
+    template_name='freeAgentApp/workerIndex.html'
+        
+    def add(request):
+        user = self.request.user
+        addWorker=Project.objects.set(worker=user)
+        addWorker.save()
+    
+    
+    def get_queryset(self):
+        # Filter by username if the type of user is client
+        user = self.request.user
+        return Project.objects.filter(worker=user)
+             
         
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project

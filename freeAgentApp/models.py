@@ -23,6 +23,7 @@ class Project(models.Model):
     file_type=models.FileField(null=True,blank=True)
 
     client = models.ForeignKey(UserProfile, null=True, blank=True)
+    worker = models.CharField(max_length=300, null=True, blank=True)
     
     def get_absolute_url(self):
         return reverse('freeAgentApp:detail',kwargs={'pk':self.pk})
