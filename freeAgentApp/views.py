@@ -68,23 +68,34 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
             return Project.objects.filter(client=user)
         else:
             return Project.objects.all()
+    
+      
       
 class WorkerView(LoginRequiredMixin, generic.ListView ):
+    print("Debug1")
     model=Project
-    template_name='freeAgentApp/workerIndex.html'
-        
-    def add(request):
-        user = self.request.user
-        addWorker=Project.objects.set(worker=user)
-        addWorker.save()
-    
-    
+    template_name='freeAgentApp/workerIndex.html'  
+  
     def get_queryset(self):
         # Filter by username if the type of user is client
+      
         user = self.request.user
         return Project.objects.filter(worker=user)
              
+    def get(self,request):
         
+        if request.method == "POST":    
+            if 'add' in request.POST:
+                          
+                user = self.request.user
+                project = Project.objects.filter(project_id)
+                project.worker = user.username
+                project.save()
+                
+            else:
+                 return render('freeAgentApp:index')
+        else:
+             return render('freeAgentApp:index')
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
@@ -108,7 +119,9 @@ class ProjectCreate(LoginRequiredMixin,CreateView):
 class ProjectUpdate(UpdateView):
     model=Project
     fields=['title','cost','description','status']
-    
+ 
+           
+             
 class ProjectDelete(DeleteView):
     model=Project
     success_url = reverse_lazy('freeAgentApp:index')
@@ -118,8 +131,6 @@ class Login(LoginView):
     form_class = LoginForm
     template_name = "freeAgentApp/login.html"
     redirect_authenticated_user = True
-
-
 
 
 

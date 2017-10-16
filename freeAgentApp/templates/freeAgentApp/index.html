@@ -41,19 +41,19 @@
                 <!--<h6>Project Status: {{project.status}}</h6>-->
                 <!--Delete or Accept-->
                 {% if user.Identification == 'C' %}
-                <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method="post"
-                      style=" display: inline;">
+                <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method="post" style=" display: inline;">
                     {%csrf_token%}
                     <!--<input type="Button" name="project_id" value="{{project.id}}">-->
                     <button type="submit" class="btn btn-default btn-sm"> Delete
                         <span class="glyphicon glyphicon-trash"></span></button>
                 </form>
                 {% else %}
-                <form action="{% url 'freeAgentApp:workerIndex'  %}" method="post"
-                      style=" display: inline;">
+             
+                <form action="{% url 'freeAgentApp:workerIndex' project.id %}" method="post" style=" display: inline;">
                     {%csrf_token%}
-                    <!--<input type="Button" name="project_id" value="{{project.id}}">-->
-                    <button type="submit" class="btn btn-default btn-sm"> Add
+                    <!--<Get rid of this and name button and then call button in views.py within add">-->
+                   
+                    <button type="submit" name ="add" class="btn btn-default btn-sm"> Add
                         <span class="glyphicon glyphicon-plus"></span></button>
                        
                 </form>
