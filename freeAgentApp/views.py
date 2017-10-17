@@ -16,7 +16,18 @@ from rest_framework import status
 from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 from django.contrib.auth.models import User,AbstractUser
 
-
+   
+def add_worker(request):
+    if request.method == "POST":    
+        if 'add' in request.POST:
+                      
+            user = request.user
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.worker = user
+            project.save()                  
+        return redirect('freeAgentApp:workerIndex') 
+    return redirect('freeAgentApp:index')
+ 
 
 class UserFormView(View):
     form_class=UserForm
@@ -82,21 +93,7 @@ class WorkerView(LoginRequiredMixin, generic.ListView ):
         user = self.request.user
         return Project.objects.filter(worker=user)
         
-class AddWorker():   
-    model=Project
-    template_name='freeAgentApp/workerIndex.html' 
-    
-    def add(self,request):
-        if request.method == "POST":    
-            if 'add' in request.POST:
-                          
-                user = self.request.user
-                project = Project.objects.get(id=request.FORM["project.id"])
-                project.worker = user.username
-                project.save()                  
-            return redirect('freeAgentApp:workerIndex') 
-        return redirect('freeAgentApp:index')
-        
+       
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
