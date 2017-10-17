@@ -48,11 +48,11 @@
                         <span class="glyphicon glyphicon-trash"></span></button>
                 </form>
                 {% else %}
-             
-                <form action="{% url 'freeAgentApp:addWorker' project.id %}" id="{%project.id%}" type="hidden" method="post" style=" display: inline;">
+                
+                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline;">
                     {%csrf_token%}
                     <!--<Get rid of this and name button and then call button in views.py within add">-->
-                  
+                    <input id="project.id" name = "project.id" type="hidden" value="{{project.id }}">
                     <button type="submit" name ="add" class="btn btn-default btn-sm"> Add
                         <span class="glyphicon glyphicon-plus"></span></button>
                        
