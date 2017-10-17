@@ -81,21 +81,22 @@ class WorkerView(LoginRequiredMixin, generic.ListView ):
       
         user = self.request.user
         return Project.objects.filter(worker=user)
-             
-    def get(self,request):
         
+class AddWorker():   
+    model=Project
+    template_name='freeAgentApp/workerIndex.html' 
+    
+    def add(self,request):
         if request.method == "POST":    
             if 'add' in request.POST:
                           
                 user = self.request.user
-                project = Project.objects.filter(project_id)
+                project = Project.objects.get(id=request.FORM["project.id"])
                 project.worker = user.username
-                project.save()
-                
-            else:
-                 return render('freeAgentApp:index')
-        else:
-             return render('freeAgentApp:index')
+                project.save()                  
+            return redirect('freeAgentApp:workerIndex') 
+        return redirect('freeAgentApp:index')
+        
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
