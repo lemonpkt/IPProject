@@ -7,10 +7,9 @@ from .models import UserProfile
 class UserForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput)
 
-
     class Meta:
-        model= UserProfile
-        fields=['username','email','password','first_name','last_name','Identification']
+        model = UserProfile
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'Identification']
 
 
 class LoginForm(AuthenticationForm):

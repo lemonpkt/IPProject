@@ -7,7 +7,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 #from django.views.generic import View
 from .forms import UserForm, LoginForm
-from django.contrib.auth import logout
+from rest_framework.generics import ListAPIView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.views import APIView
@@ -139,6 +139,9 @@ class Login(LoginView):
     redirect_authenticated_user = True
 
 
+class UserSerializer(ListAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
 
 class LogOut(LogoutView):
     # next_page = 'login'

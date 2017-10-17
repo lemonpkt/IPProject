@@ -6,6 +6,7 @@ from decimal import *
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User,AbstractUser
 
+
 class UserProfile(AbstractUser):
     
     Identification = models.CharField(max_length=10, choices=(('F', 'freeAgent'), ('C', 'Client')))
@@ -15,12 +16,12 @@ class Project(models.Model):
 
     title = models.CharField(max_length=100)
     cost = models.DecimalField(max_digits=15, decimal_places=2)
-    pub_date =timezone.now()
+    pub_date = timezone.now()
 
     #Status could be one of four. (New=1, Accdepted=2, completed=3 & closed=4)  
     status = models.IntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(4)])   
     description = models.CharField(max_length=300)
-    file_type=models.FileField(null=True,blank=True)
+    file_type = models.FileField(null=True,blank=True)
 
     client = models.ForeignKey(UserProfile, related_name="ThisCLient", null=True, blank=True)
     worker = models.ForeignKey(UserProfile, related_name="ThisWorker", null=True, blank=True)
