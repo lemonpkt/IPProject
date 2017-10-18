@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'project/(?P<pk>[0-9]+)/$',views.ProjectUpdate.as_view(), name='updateProject'),
     #/freeAgentApp/project/2/delete/
     url(r'project/(?P<pk>[0-9]+)/delete/$',views.ProjectDelete.as_view(), name='deleteProject'),
-    
+    url(r'^workerIndex/$',views.WorkerView.as_view(), name='workerIndex'),
+    url(r'^addWorker/$',views.add_worker, name='addWorker'),
 ]
 
 

@@ -16,7 +16,18 @@ from rest_framework import status
 from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 from django.contrib.auth.models import User,AbstractUser
 
-
+   
+def add_worker(request):
+    if request.method == "POST":    
+        if 'add' in request.POST:
+                      
+            user = request.user
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.worker = user
+            project.save()                  
+        return redirect('freeAgentApp:workerIndex') 
+    return redirect('freeAgentApp:index')
+ 
 
 class UserFormView(View):
     form_class=UserForm
@@ -24,10 +35,12 @@ class UserFormView(View):
 
     #New form
     def get(self,request):
-        form=self.form_class(None)
+        if request.user.is_authenticated():
+            return redirect('freeAgentApp:index')
+
+        form = self.form_class()
         return render(request, self.template_name,{'form':form})
-            
-        
+
         
     #Completed form
     def post(self,request):
@@ -40,22 +53,28 @@ class UserFormView(View):
             #Get cleaned noramlised data - i.e. date entries etc
             username=form.cleaned_data['username']
             password= form.cleaned_data['password']
-                
-            #Change user password
-            user.set_password(password)
-            user.save()
-                
-            #This retruns the USer objects if authentication is correct
-            user=authenticate(username=username,password=password)
-                
-            if user is not None:
-                if user.is_active:
-                    login(request,user)
-                        
-                        #request.user.username
-                        #request.user.email
-                return redirect('freeAgentApp:index')          
-            return render(request,self.template_name,{'form':form})
+            try:
+                UserProfile.objects.get(username=username)
+
+                #Change user password
+            except UserProfile.DoesNotExist:
+                user.set_password(password)
+                user.save()
+
+                #This retruns the USer objects if authentication is correct
+                user=authenticate(username=username,password=password)
+
+                if user is not None:
+                    if user.is_active:
+                        login(request,user)
+
+                            #request.user.username
+                            #request.user.email
+                    return redirect('freeAgentApp:index')
+                return render(request,self.template_name,{'form':form})
+
+        return render(request, self.template_name, {'form': form})
+
                         
 
 class IndexView(LoginRequiredMixin, generic.ListView ):
@@ -68,8 +87,21 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
             return Project.objects.filter(client=user)
         else:
             return Project.objects.all()
-
+    
+      
+      
+class WorkerView(LoginRequiredMixin, generic.ListView ):
+    print("Debug1")
+    model=Project
+    template_name='freeAgentApp/workerIndex.html'  
+  
+    def get_queryset(self):
+        # Filter by username if the type of user is client
+      
+        user = self.request.user
+        return Project.objects.filter(worker=user)
         
+       
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
@@ -93,7 +125,9 @@ class ProjectCreate(LoginRequiredMixin,CreateView):
 class ProjectUpdate(UpdateView):
     model=Project
     fields=['title','cost','description','status']
-    
+ 
+           
+             
 class ProjectDelete(DeleteView):
     model=Project
     success_url = reverse_lazy('freeAgentApp:index')
@@ -103,8 +137,6 @@ class Login(LoginView):
     form_class = LoginForm
     template_name = "freeAgentApp/login.html"
     redirect_authenticated_user = True
-
-
 
 
 

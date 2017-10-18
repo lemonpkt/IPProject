@@ -10,7 +10,7 @@
 <!--</div>-->
 <div class="page-header">
     {% if user.Identification == 'F' %}
-    <div class="container"><h3>All Projects</h3></div>
+    <div class="container"><h3>FreeAgent - Available Projects</h3></div>
     {% else %}
     <div class="container"><h3>My Created Projects</h3></div>
     {% endif %}
@@ -39,14 +39,27 @@
                 </h6>
 
                 <!--<h6>Project Status: {{project.status}}</h6>-->
-                <!--Delete-->
-                <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method="post"
-                      style=" display: inline;">
+                <!--Delete or Accept-->
+                {% if user.Identification == 'C' %}
+                <form action="{% url 'freeAgentApp:deleteProject' project.id %}" method="post" style=" display: inline;">
                     {%csrf_token%}
                     <!--<input type="Button" name="project_id" value="{{project.id}}">-->
                     <button type="submit" class="btn btn-default btn-sm"> Delete
                         <span class="glyphicon glyphicon-trash"></span></button>
                 </form>
+                {% else %}
+                
+                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline;">
+                    {%csrf_token%}
+                    <!--<Get rid of this and name button and then call button in views.py within add">-->
+                    <input id="project.id" name = "project.id" type="hidden" value="{{project.id }}">
+                    <button type="submit" name ="add" class="btn btn-default btn-sm"> Add
+                        <span class="glyphicon glyphicon-plus"></span></button>
+                       
+                </form>
+                
+                {% endif %}
+
 
             </div>
 
