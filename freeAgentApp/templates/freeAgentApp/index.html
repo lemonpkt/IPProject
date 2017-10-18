@@ -9,7 +9,11 @@
 <!--<h3>Project List</h3>-->
 <!--</div>-->
 <div class="page-header">
+    {% if user.Identification == 'F' %}
+    <div class="container"><h3>All Projects</h3></div>
+    {% else %}
     <div class="container"><h3>My Created Projects</h3></div>
+    {% endif %}
 </div>
 
 
@@ -54,5 +58,3 @@
 {% endfor %}
 
 {% endblock %}
-
-

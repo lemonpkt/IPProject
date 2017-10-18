@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 app_name='freeAgentApp'
 
@@ -11,7 +12,7 @@ urlpatterns = [
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
     #/freeAgentApp/login
     url(r'^login/$',views.Login.as_view(), name='login'),
-    #／freeAgentApp／logout
+    #/freeAgentApp/logout
     url(r'^logout/$',views.LogOut.as_view(), name='logout'),
     #/freeAgentApp/13/
     url(r'^(?P<pk>[0-9]+)/$',views.DetailView.as_view(), name='detail'),
@@ -23,3 +24,7 @@ urlpatterns = [
     url(r'project/(?P<pk>[0-9]+)/delete/$',views.ProjectDelete.as_view(), name='deleteProject'),
     
 ]
+
+
+
+urlpatterns =  format_suffix_patterns(urlpatterns)
