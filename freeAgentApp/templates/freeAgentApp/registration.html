@@ -1,36 +1,54 @@
 {% extends 'freeAgentApp/login_base.html' %}
-{% block title %} Register {% endblock %}
 
+{% block title %}
+    Register
+{% endblock %}
+
+{% block head %}
+    <script src="../../static/freeAgentApp/js/checkUsername.js"></script>
+{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Create New Account</h3>
+                        {#% if error_message %#}
+                           <!-- <p><strong>{{error_message}}</strong> -->
+                        {#%endif%#}
 
-    <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    
-                    <h3>Create New Account</h3>
-                    {#% if error_message %#}
-                       <!-- <p><strong>{{error_message}}</strong> -->
-                    {#%endif%#}
-                                      
-                    <form class= "form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'freeAgentApp/form-template.html'%}
-                        <div class "form-group">
-                            <div class ="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>                 
-                    </form>
+                        <form class= "form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'freeAgentApp/form-template.html'%}
+                            <div class ="form-group">
+                                <div class ="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
-</div>
 
+    <script type="text/javascript">
 
+        var username = document.getElementById('id_username');
+        var input;
 
+        username.addEventListener("input",function () {
+            input = username.value || NaN;
+        })
+
+        username.addEventListener("blur", function () {
+            document.getElementById('pTag-Username').innerHTML = input;
+            username.addEventListener("click",function () {
+                document.getElementById('pTag-Username').innerHTML = "";
+            })
+        })
+    </script>
 
 {% endblock %}

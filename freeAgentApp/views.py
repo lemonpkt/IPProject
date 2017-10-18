@@ -105,7 +105,8 @@ class WorkerView(LoginRequiredMixin, generic.ListView ):
 class DetailView(LoginRequiredMixin,generic.DetailView):
     model=Project
     template_name='freeAgentApp/detail.html'
-    
+
+
 class ProjectCreate(LoginRequiredMixin,CreateView):
     model=Project
     fields=['title','cost','description','status','file_type']
@@ -122,14 +123,14 @@ class ProjectCreate(LoginRequiredMixin,CreateView):
         # Required by the CreateView view to return the reponse objects
         return response
 
+
 class ProjectUpdate(UpdateView):
-    model=Project
-    fields=['title','cost','description','status']
+    model = Project
+    fields = ['title', 'cost', 'description', 'status']
  
-           
-             
+
 class ProjectDelete(DeleteView):
-    model=Project
+    model = Project
     success_url = reverse_lazy('freeAgentApp:index')
 
 
@@ -142,6 +143,7 @@ class Login(LoginView):
 class UserSerializer(ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+
 
 class LogOut(LogoutView):
     # next_page = 'login'
