@@ -24,7 +24,11 @@ def add_worker(request):
             user = request.user
             project = Project.objects.get(id=request.POST["project.id"])
             project.worker = user
-            project.save()                  
+            project.save()
+            
+            # status=Project.objects.get(id=request.POST["project.status"])
+            # status++
+            # status.save()
         return redirect('freeAgentApp:workerIndex') 
     return redirect('freeAgentApp:index')
  
