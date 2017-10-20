@@ -15,7 +15,18 @@
         <h6> Description: {{project.description}}</h6>
         <h6> Posted Date: {{project.pub_date}}</h6>
         <h6> Worker: {{project.worker }}</h6>
+        <!--Allows freeAgent to upload files-->
+        
+        <form action="{% url 'freeAgentApp:detail' project.id %}" method="post" enctype="multipart/form-data" style=" display: inline;">
+                    {%csrf_token%}
+
+                    <button type="submit" name ="add" class="btn btn-default btn-sm"> Upload
+                        <span class="glyphicon glyphicon-plus"></span></button>
+        </form>
+        
+        
     </div>
 </div>
+
 
 {% endblock %}
