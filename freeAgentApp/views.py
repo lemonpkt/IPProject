@@ -24,10 +24,15 @@ def add_worker(request):
             user = request.user
             project = Project.objects.get(id=request.POST["project.id"])
             project.worker = user
-            project.save()                  
+            project.save()            
         return redirect('freeAgentApp:workerIndex') 
     return redirect('freeAgentApp:index')
  
+def search_view(request):
+    query = request.GET['q']
+    t = loader.get_template('template/results.html')
+    c = Context({ 'query': query,})
+    return HttpResponse(t.render(c))
 
 class UserFormView(View):
     form_class=UserForm
