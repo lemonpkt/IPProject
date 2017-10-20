@@ -1,0 +1,26 @@
+
+
+
+#css-self-made-1{
+
+    text-align: center;
+
+}
+
+#pTag-Username{
+    color: red;
+
+}
+
+.control-label-self-define{
+    text-align: left;
+    float: left;
+}
+
+#id_Identification{
+    float: left;
+}
+
+h2 {
+    margin-top: 0px;
+}
