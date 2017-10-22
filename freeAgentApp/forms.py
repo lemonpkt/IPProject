@@ -22,4 +22,4 @@ class LoginForm(AuthenticationForm):
     username = UsernameField(
         widget=forms.TextInput()
     )
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'password'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input'}))
