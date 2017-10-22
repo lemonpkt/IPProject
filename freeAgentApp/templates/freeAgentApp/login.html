@@ -1,16 +1,126 @@
-{% extends 'freeAgentApp/login_base.html' %}
- {% block body %}
-    <img src="../../static/freeAgentApp/images/CatLogo.jpg" alt="logo" height="200" align = "middle|top"/>
-    <form action="" method="post" style = "vertical-align:middle">
-        {% csrf_token %}
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        <br/>
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        {{ form.non_field_errors  }}
-        <br/>
-        <input type="submit" value="submit" style = "vertical-align:middle">
-    </form>
-    <a href="{% url 'freeAgentApp:register' %}" style = "vertical-align:middle"><p>Register</p></a>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FreeAgent Login</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <link rel='stylesheet prefetch'
+          href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="../../static/freeAgentApp/css/style.css">
+
+
+</head>
+
+<body>
+
+<!-- Mixins-->
+<!-- Pen Title-->
+<div class="pen-title">
+    <h1>FreeAgent</h1><span>Coding Marketplace</span>
+</div>
+<!--<div class="rerun"><a href="">Rerun Pen</a></div>-->
+<div class="container">
+
+    <div class="card"></div>
+    <div class="card">
+        <div class="row">
+            <div class="col">
+                <h1 class="title">Login</h1>
+            </div>
+        </div>
+
+        <form action="" method="post" style="vertical-align:middle">
+            <div class="input-container">
+                {% csrf_token %}
+                <!--{{ form.username.label_tag }}-->
+                {{ form.username }}
+                <!--<input type="#{type}" id="#{label}" required="required"/>-->
+                <label for="#{label}">Username</label>
+                <div class="bar"></div>
+            </div>
+
+            <div class="input-container">
+                <!--<input type="#{type}" id="#{label}" required="required"/>-->
+                {{ form.password }}
+                <!--{{ form.errors }}-->
+                <label for="#{label}">Password</label>
+                <div class="bar"></div>
+            </div>
+
+            <div class="input-container">
+                {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+            </div>
+
+            <div class="button-container">
+                <button type="submit" value="submit" style="vertical-align:middle">Go</button>
+            </div>
+
+
+        </form>
+        <!--<form method="GET" action="{% url 'freeAgentApp:createProject' %}">-->
+            <!--<div class="button-container">-->
+                <!--&lt;!&ndash;<a href="{% url 'freeAgentApp:createProject' %}">Go</a>&ndash;&gt;-->
+                <!--<input type="submit" value="submit"><span>Go</span></input>-->
+            <!--</div>-->
+            <!--<div class="footer"><a href="#">Forgot your password?</a></div>-->
+
+        <!--</form>-->
+        <div class="footer"><a href="{% url 'freeAgentApp:register' %}">Register an account</a></div>
+    </div>
+    <div class="card alt">
+        <!--<div class="toggle">-->
+        <!--<form method="GET" action="{% url 'freeAgentApp:register' %}"></form>-->
+        <!--</div>-->
+        <!--<h1 class="title">Register-->
+        <!--<div class="close"></div>-->
+        <!--</h1>-->
+
+        <!--<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">-->
+        <!--{% csrf_token %}-->
+        <!--{% include 'freeAgentApp/form-template.html'%}-->
+        <!--<div class="form-group">-->
+        <!--<div class="col-sm-offset-2 col-sm-10">-->
+        <!--<button type="submit" class="btn btn-success">Submit</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</form>-->
+
+        <!--<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">-->
+        <!--{% csrf_token %}-->
+        <!--<div class="input-container">-->
+        <!--<input type="#{type}" id="#{label}" required="required"/>-->
+        <!--<label for="#{label}">Username</label>-->
+        <!--</div>-->
+        <!--<div class="input-container">-->
+        <!--<input type="#{type}" id="#{label}" required="required"/>-->
+        <!--<label for="#{label}">Password</label>-->
+        <!--<div class="bar"></div>-->
+        <!--</div>-->
+        <!--<div class="input-container">-->
+        <!--<input type="#{type}" id="#{label}" required="required"/>-->
+        <!--<label for="#{label}">Repeat Password</label>-->
+        <!--<div class="bar"></div>-->
+        <!--</div>-->
+        <!--<form method="GET" action="{% url 'freeAgentApp:createProject' %}">-->
+        <!--<div class="button-container">-->
+        <!--<button><span>Next</span></button>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--</form>-->
+    </div>
+</div>
+<!-- Portfolio--><a id="portfolio" href="http://andytran.me/" title="View my portfolio!"><i class="fa fa-link"></i></a>
+<!-- CodePen--><a id="codepen" href="https://codepen.io/andytran/" title="Follow me!"><i class="fa fa-codepen"></i></a>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="../../static/freeAgentApp/js/index.js"></script>
+
+</body>
+</html>
+
