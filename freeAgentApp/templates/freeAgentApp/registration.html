@@ -1,32 +1,40 @@
 {% extends 'freeAgentApp/login_base.html' %}
-{% block title %} Register {% endblock %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block login_head %}
+    <script type="text/javascript" src="../../static/freeAgentApp/js/checkUsername.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/freeAgentApp/css/register.css"/>
+{% endblock %}
 
 
 {% block body %}
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <h3>Create New Account</h3>
-                    {% if error_message %}
-                    <p><strong>{{error_message}}</strong>
-                        {%endif%}
-
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'freeAgentApp/form-template.html'%}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-sm-3"></div>
+            <div class="col-xs-9 col-sm-6" >
+                <div class="panel panel-default" id="css-self-made-1">
+                    <div class="panel-body" >
+                        <h2>Create New Account</h2>
+                        <form class= "form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'freeAgentApp/form-template.html'%}
+                            <div class ="form-group">
+                                <div class ="col-sm-offset-1 col-sm-10">
+                                    <button type="submit" class="btn btn-success btn-lg" >Submit</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script>
+
+    </script>
+
 {% endblock %}

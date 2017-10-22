@@ -4,7 +4,7 @@
 
 {% block body %}
 
-
+{{ error }}
 <!--<div class="jumbotron container">-->
 <!--<h3>Project List</h3>-->
 <!--</div>-->
@@ -69,5 +69,13 @@
 
 
 {% endfor %}
+    <script>
+    var url = window.location.search;
+    var message = url[url.lastIndexOf('=')+1];
+    if(message == '1'){
+        alert('Sorry, someone has already applied this project!');
+    }
+
+    </script>
 
 {% endblock %}
