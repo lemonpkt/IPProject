@@ -1,3 +1,6 @@
 {% extends 'freeAgentApp/base.html' %}
 {% block title %} Search Results {% endblock %}
+
+{% for project in object_list %}
 <div>You searched for: {{ query }} </div>
+{% endfor %}

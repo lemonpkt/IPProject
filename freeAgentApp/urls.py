@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^addWorker/$',views.add_worker, name='addWorker'),
     #/freeAgentApp/results
     url(r'^results/$',views.search_view,name='results'),
+    #/freeAgentApp/search
+    #url(r'^search/$',views.search_view.search,name='search'),
 ]
 
 

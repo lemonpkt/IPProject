@@ -19,9 +19,8 @@
         
         <form action="{% url 'freeAgentApp:detail' project.id %}" method="post" enctype="multipart/form-data" style=" display: inline;">
                     {%csrf_token%}
-
                     <button type="submit" name ="add" class="btn btn-default btn-sm"> Upload
-                        <span class="glyphicon glyphicon-plus"></span></button>
+                    <span class="glyphicon glyphicon-plus"></span></button>
         </form>
         
         

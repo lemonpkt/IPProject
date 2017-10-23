@@ -15,8 +15,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 from django.contrib.auth.models import User,AbstractUser
-
-   
+from django.template.loader import get_template
+from django.template import loader
+from django.shortcuts import render, render_to_response
+from django.template import Context, Template
+ 
 def add_worker(request):
     if request.method == "POST":    
         if 'add' in request.POST:
@@ -30,7 +33,9 @@ def add_worker(request):
  
 def search_view(request):
     query = request.GET['q']
-    t = loader.get_template('template/results.html')
+    #template_name='freeAgentApp/results.html'
+    t = loader.get_template('freeAgentApp/results.html')
+    Context=object.__dict__
     c = Context({ 'query': query,})
     return HttpResponse(t.render(c))
 
