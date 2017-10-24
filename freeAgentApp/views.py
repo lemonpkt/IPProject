@@ -89,9 +89,9 @@ class IndexView(LoginRequiredMixin, generic.ListView):
             return Project.objects.filter(client=user)
         else:
             return Project.objects.all()
-    
 
-class WorkerView(LoginRequiredMixin, generic.ListView ):
+
+class WorkerView(LoginRequiredMixin, generic.ListView):
     print("Debug1")
     model = Project
     template_name = 'freeAgentApp/workerIndex.html'
