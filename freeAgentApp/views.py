@@ -169,6 +169,9 @@ class ProjectCreateAPI(CreateAPIView):
     serializer_class = ProjectCreateSerializer
     permissions_class = [permissions.IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(user = self.request.user)
+
 
 class ProjectUpdateAndDeleteAPI(RetrieveUpdateDestroyAPIView):
     # queryset = Project.objects.all()
