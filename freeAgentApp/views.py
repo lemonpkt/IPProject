@@ -1,20 +1,18 @@
 from django.views import generic
-from .models import Project,Review,UserProfile
+from .models import Project, Review, UserProfile
 from django.views.generic import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login
-#from django.views.generic import View
 from .forms import UserForm, LoginForm
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.views import APIView
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
-from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
-from django.contrib.auth.models import User,AbstractUser
+from .serializer import ProjectSerializer, ProjectCreateSerializer, UserProfileSerializer
 from django.http import HttpResponse, HttpResponseRedirect
 
    
@@ -29,7 +27,6 @@ def add_worker(request):
                 project.status = 2
                 project.save()
             else:
-                context = ['Taken']
                 return HttpResponseRedirect('../?message=1')
                 # redirect('freeAgentApp:index')
         return redirect('freeAgentApp:workerIndex') 
@@ -38,9 +35,9 @@ def add_worker(request):
 
 class UserFormView(View):
     form_class = UserForm
-    template_name ='freeAgentApp/registration.html'
+    template_name = 'freeAgentApp/registration.html'
 
-    #New form
+    # New form
     def get(self,request):
         if request.user.is_authenticated():
             return redirect('freeAgentApp:index')
@@ -48,8 +45,7 @@ class UserFormView(View):
         form = self.form_class()
         return render(request, self.template_name, {'form':form})
 
-        
-    #Completed form
+    # Completed form
     def post(self,request):
         form = self.form_class(request.POST)
            
@@ -57,26 +53,26 @@ class UserFormView(View):
            
             user = form.save(commit=False)
                 
-            #Get cleaned noramlised data - i.e. date entries etc
+            # Get cleaned noramlised data - i.e. date entries etc
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             try:
                 UserProfile.objects.get(username=username)
 
-                #Change user password
+                # Change user password
             except UserProfile.DoesNotExist:
                 user.set_password(password)
                 user.save()
 
-                #This retruns the USer objects if authentication is correct
+                # This retruns the USer objects if authentication is correct
                 user = authenticate(username=username,password=password)
 
                 if user is not None:
                     if user.is_active:
                         login(request, user)
 
-                            #request.user.username
-                            #request.user.email
+                            # request.user.username
+                            # request.user.email
                     return redirect('freeAgentApp:index')
                 return render(request, self.template_name, {'form':form})
 
@@ -94,12 +90,11 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         else:
             return Project.objects.all()
     
-      
-      
+
 class WorkerView(LoginRequiredMixin, generic.ListView ):
     print("Debug1")
-    model=Project
-    template_name='freeAgentApp/workerIndex.html'  
+    model = Project
+    template_name = 'freeAgentApp/workerIndex.html'
   
     def get_queryset(self):
         # Filter by username if the type of user is client
@@ -108,9 +103,9 @@ class WorkerView(LoginRequiredMixin, generic.ListView ):
         return Project.objects.filter(worker=user)
         
        
-class DetailView(LoginRequiredMixin,generic.DetailView):
-    model=Project
-    template_name='freeAgentApp/detail.html'
+class DetailView(LoginRequiredMixin, generic.DetailView):
+    model = Project
+    template_name = 'freeAgentApp/detail.html'
 
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
@@ -146,13 +141,50 @@ class Login(LoginView):
     redirect_authenticated_user = True
 
 
+class LogOut(LogoutView):
+    # next_page = 'login'
+    pass
+
+
 class UserSerializer(ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
 
-class LogOut(LogoutView):
-    # next_page = 'login'
-    pass
+class ProjectListAPI(ListAPIView):
+    serializer_class = ProjectSerializer
+    permissions_class = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.Identification is 'C':
+            self.queryset = Project.objects.filter(client=user)
+            return self.queryset
+        elif user.Identification is 'F':
+            self.queryset = Project.objects.filter(worker=user)
+            return self.queryset
+
+
+class ProjectCreateAPI(CreateAPIView):
+    # queryset = Project.objects.all()
+    serializer_class = ProjectCreateSerializer
+    permissions_class = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class ProjectUpdateAndDeleteAPI(RetrieveUpdateDestroyAPIView):
+    # queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permissions_class = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.Identification is 'C':
+            self.queryset = Project.objects.filter(client=user)
+            return self.queryset
+        elif user.Identification is 'F':
+            self.queryset = Project.objects.filter(worker=user)
+            return self.queryset
 
