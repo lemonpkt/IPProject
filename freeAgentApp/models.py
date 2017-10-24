@@ -35,7 +35,7 @@ class Project(models.Model):
         
 class Review(models.Model):
     
-    #Client can only enter an integer between 0 & 10
+    # Client can only enter an integer between 0 & 10
     project=models.ForeignKey(Project,null=True, on_delete=models.CASCADE)
     project_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
 

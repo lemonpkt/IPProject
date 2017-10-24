@@ -6,7 +6,6 @@ from .models import UserProfile
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
-
     class Meta:
         model = UserProfile
         fields = ['username', 'email', 'password', 'first_name', 'last_name', 'Identification']
