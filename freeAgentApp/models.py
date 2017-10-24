@@ -23,12 +23,12 @@ class Project(models.Model):
     description = models.CharField(max_length=300)
     file_type = models.FileField(null=True, blank=True)
 
-    client = models.ForeignKey(UserProfile, related_name="ThisCLient", null=True, blank=True)
+    client = models.ForeignKey(UserProfile, related_name="ThisClient", null=True, blank=True)
     worker = models.ForeignKey(UserProfile, related_name="ThisWorker", null=True, blank=True)
     
-    def get_absolute_url(self):
-        return reverse('freeAgentApp:detail',kwargs={'pk':self.pk})
-    
+    # def get_absolute_url(self):
+    #     return reverse('freeAgentApp:detail', kwargs={'pk': self.pk})
+    #
     def __str__(self):
         return "%s" % self.title
         
@@ -36,7 +36,7 @@ class Project(models.Model):
 class Review(models.Model):
     
     #Client can only enter an integer between 0 & 10
-    project=models.ForeignKey(Project,null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, null=True, on_delete=models.CASCADE)
     project_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
 
     def __str__(self):
