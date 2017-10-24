@@ -48,7 +48,6 @@ class UserFormView(View):
         form = self.form_class()
         return render(request, self.template_name, {'form':form})
 
-        
     #Completed form
     def post(self,request):
         form = self.form_class(request.POST)
@@ -94,9 +93,8 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         else:
             return Project.objects.all()
     
-      
-      
-class WorkerView(LoginRequiredMixin, generic.ListView ):
+
+class WorkerView(LoginRequiredMixin, generic.ListView):
     print("Debug1")
     model=Project
     template_name='freeAgentApp/workerIndex.html'  
