@@ -9,7 +9,6 @@ class ProjectCreateSerializer(serializers.ModelSerializer):
         fields = ['title', 'cost', 'description', 'file_type']
 
 
-
 class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:

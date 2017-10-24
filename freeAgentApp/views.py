@@ -153,6 +153,7 @@ class UserSerializer(ListAPIView):
 
 class ProjectListAPI(ListAPIView):
     serializer_class = ProjectSerializer
+    prermissions_class = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -176,6 +177,7 @@ class ProjectCreateAPI(CreateAPIView):
 class ProjectUpdateAndDeleteAPI(RetrieveUpdateDestroyAPIView):
     # queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permissions_class = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
