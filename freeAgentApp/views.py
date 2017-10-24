@@ -1,7 +1,7 @@
 from django.views import generic
 from .models import Project, Review, UserProfile
 from django.views.generic import *
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, BaseFormView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login
@@ -29,7 +29,19 @@ def add_worker(request):
             else:
                 return HttpResponseRedirect('../?message=1')
                 # redirect('freeAgentApp:index')
-        return redirect('freeAgentApp:workerIndex') 
+            return redirect('freeAgentApp:workerIndex')
+
+        if 'Accept' in request.POST:
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.status = 3
+            project.save()
+            return redirect('freeAgentApp:detail', project.id)
+        elif 'Refuse' in request.POST:
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.status = 1
+            project.worker = None
+            project.save()
+            return redirect('freeAgentApp:detail', project.id)
     return redirect('freeAgentApp:index')
  
 

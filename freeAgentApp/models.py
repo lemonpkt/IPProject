@@ -22,7 +22,7 @@ class Project(models.Model):
     status = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(4)])
     description = models.CharField(max_length=300)
     file_type = models.FileField(null=True, blank=True)
-
+    client_upload = models.FileField(null=True, blank=True)
     client = models.ForeignKey(UserProfile, related_name="ThisClient", null=True, blank=True)
     worker = models.ForeignKey(UserProfile, related_name="ThisWorker", null=True, blank=True)
     
