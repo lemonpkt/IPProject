@@ -27,7 +27,19 @@ urlpatterns = [
     # /freeAgent/addWorker
     url(r'^addWorker/$', views.add_worker, name='addWorker'),
     # /freeAgent/serializerUsername
-    url(r'^serializerUsername', views.UserSerializer.as_view(), name='userNameSerializer')
+    url(r'^serializerUsername', views.UserSerializer.as_view(), name='userNameSerializer'),
+    # ／freeAgentApp/SerializeProject/create
+    url(r'^serializerProject/create', views.ProjectCreateAPI.as_view(), name='ProjectCreateSerializer'),
+
+    # ／freeAgentApp/SerializeProject/manage
+    url(r'^serializerProject/manage/(?P<pk>[0-9]+)/',
+        views.ProjectUpdateAndDeleteAPI.as_view(),
+        name='ProjectManageSerializer'),
+
+    # ／freeAgentApp/SerializeProject/list
+    url(r'^serializerProject/list', views.ProjectListAPI.as_view(), name='ProjectListSerializer'),
+
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

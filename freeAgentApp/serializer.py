@@ -2,10 +2,17 @@ from rest_framework import serializers
 from .models import Project, Review, UserProfile
 
 
+class ProjectCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = ['title', 'cost', 'description', 'file_type']
+
+
 class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model=Project
+        model = Project
         fields = '__all__'
 
 
