@@ -2,6 +2,16 @@
 
 FreeAgent system using Python 3 and Django. Written for ELEC3609 Semester 2, 2017 at The University of Sydney.
 
+## Introduction
+
+The FreeAgent system is a Django-powered website that allows clients ("End Clients") to create projects and free lancers ("Free Agents") to accept them. 
+
+## Current state of the code base
+
+There is currently functionality for registering users, creating new projects, accepting a project, and uploading a code submission to a project. There's a RESTful API endpoint for the manipulation of projects (discussed below).
+
+See the issues page for what needs doing. Currently, we'd like to impliment being able to download a file submission from a project, and being able to mark a project as "completed". Other possibilites include allowing a "Free Agent" to quit a project after it's been accepted.
+
 ## Installation
 
 ### 1. Clone this repo
@@ -13,6 +23,8 @@ git clone https://github.com/lemonpkt/IPProject
 ```
 
 ### 2. Install dependencies
+
+This project uses Python 3, Django 1.11, and the Django REST Framework.
 
 Navigate to the cloned folder and install the requirements:
 
@@ -32,7 +44,7 @@ python manage.py migrate
 
 ### 4. Run
 
-Launch the website locally at `http://127.0.0.1:8000`:
+Launch the website locally:
 
 ```
 python manage.py runserver 0:8000
