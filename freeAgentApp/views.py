@@ -17,7 +17,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 
    
 def add_worker(request):
+    """Handles adding workers to projects and uploading code to projects.
+    Called when a corresponding button is clicked on a project."""
+
     if request.method == "POST":    
+        # Free Agent clicked 'add' button on a project
         if 'add' in request.POST:
             user = request.user
             project = Project.objects.get(id=request.POST["project.id"])
@@ -30,6 +34,7 @@ def add_worker(request):
                 # redirect('freeAgentApp:index')
             return redirect('freeAgentApp:workerIndex')
 
+        # End Client accepts or rejects a Free Agent on a project
         if 'Accept' in request.POST:
             project = Project.objects.get(id=request.POST["project.id"])
             if project.status == 2:
@@ -43,21 +48,25 @@ def add_worker(request):
             project.save()
             return redirect('freeAgentApp:detail', project.id)
 
+        # Free Agent uploads completed code submission to a project
         if 'UploadWork' in request.POST:
             project = Project.objects.get(id=request.POST["project.id"])
             project.save()
             return redirect('freeAgentApp:detail', project.id)
 
+        # End Client confirms a completed code submission on a project
         if 'ConfirmWork' in request.POST:
             project = Project.objects.get(id=request.POST["project.id"])
             project.status = 4
             project.save()
             return redirect('freeAgentApp:detail', project.id)
 
+    # We don't do GET requests!
     return redirect('freeAgentApp:index')
  
 
 class UserFormView(View):
+    """Registration form."""
     form_class = UserForm
     template_name = 'freeAgentApp/registration.html'
 
@@ -69,7 +78,7 @@ class UserFormView(View):
         form = self.form_class()
         return render(request, self.template_name, {'form':form})
 
-    # Completed form
+    # Completed form. Creates a new user.
     def post(self,request):
         form = self.form_class(request.POST)
            
@@ -80,30 +89,32 @@ class UserFormView(View):
             # Get cleaned noramlised data - i.e. date entries etc
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+
+            # Make sure the username is unique
             try:
                 UserProfile.objects.get(username=username)
-
-                # Change user password
             except UserProfile.DoesNotExist:
+                # Change user password
                 user.set_password(password)
                 user.save()
 
-                # This retruns the USer objects if authentication is correct
+                # Authenticate and login the new user
                 user = authenticate(username=username,password=password)
-
                 if user is not None:
                     if user.is_active:
                         login(request, user)
-
-                            # request.user.username
-                            # request.user.email
                     return redirect('freeAgentApp:index')
                 return render(request, self.template_name, {'form':form})
 
+        # Registration failed
         return render(request, self.template_name, {'form': form})
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
+    """Home page. Displays a list of created projects for an End Client, and
+    a list of all projects to a Free Agent.
+
+    """
     template_name = 'freeAgentApp/index.html'
 
     def get_queryset(self):
@@ -116,7 +127,8 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
 
 class WorkerView(LoginRequiredMixin, generic.ListView):
-    print("Debug1")
+    """Displays a list of all the projects an End Client has accepted."""
+
     model = Project
     template_name = 'freeAgentApp/workerIndex.html'
   
@@ -128,11 +140,15 @@ class WorkerView(LoginRequiredMixin, generic.ListView):
         
        
 class DetailView(LoginRequiredMixin, generic.DetailView):
+    """Detailed information for a given project."""
+
     model = Project
     template_name = 'freeAgentApp/detail.html'
 
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
+    """Form to create a new project."""
+
     model = Project
     fields = ['title', 'cost', 'description', 'file_type']
 
@@ -165,15 +181,20 @@ class ProjectDelete(DeleteView):
 
 
 class Login(LoginView):
+    """Login page."""
+
     form_class = LoginForm
     template_name = "freeAgentApp/login.html"
     redirect_authenticated_user = True
 
 
 class LogOut(LogoutView):
-    # next_page = 'login'
     pass
 
+
+#
+# RESTful API views
+#
 
 class UserSerializer(ListAPIView):
     queryset = UserProfile.objects.all()
