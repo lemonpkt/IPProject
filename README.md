@@ -59,3 +59,18 @@ A brief overview of the views in `views.py` and what they do:
 * `UserSerializer` - RESTful GET endpoint for retreiving a list of usernames.
 * `ProjectCreateAPI`, `ProjectListAPI` - RESTful endpoints for manipulating projects.
 
+## AJAX
+
+There is a Javascript function based on JQuery to checking whether username had been taken. This function contains an AJAX to get existing username from Restful API which ‘url’ is /freeAgentApp/serializerUsername. The AJAX use get method and JSON datatype. After matching with the typed username, a remind message will be shown through JQuery. 
+
+## Restful API
+In this project, there are four rest api built.
+
+* Username, without authentication, support GET method, freeAgentApp/serializerUsername, can get all the username and their identification.
+
+* Create project, must be authenticated, support POST method, /freeAgentApp/SerializeProject/create, users can create project through this webpage.
+
+* List project, must be authenticated, support GET method, /freeAgentApp/SerializeProject/list,
+User can check their relevant projects through this page, get the id for indicated project.
+
+* Manage project, must be authenticated and given the id, support GET, PUT, DELETE method,    /freeAgentApp/SerializeProject/manage/id, user can modify the project (Update, Delete) through this site.
