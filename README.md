@@ -10,7 +10,7 @@ The FreeAgent system is a Django-powered website that allows clients ("End Clien
 
 There is currently functionality for registering users, creating new projects, accepting a project, and uploading a code submission to a project. There's a RESTful API endpoint for the manipulation of projects (discussed below).
 
-See the issues page for what needs doing. Currently, we'd like to impliment being able to download a file submission from a project, and being able to mark a project as "completed". Other possibilites include allowing a "Free Agent" to quit a project after it's been accepted.
+See the issues page for what needs doing. Currently, we'd like to implement being able to download a file submission from a project, and being able to mark a project as "completed". Other possibilities include allowing a "Free Agent" to quit a project after it's been accepted.
 
 ## Installation
 
@@ -68,12 +68,12 @@ A brief overview of the views in `views.py` and what they do:
 * `DetailView` - Displays detailed information about a project.
 * `ProjectCreate`, `ProjectUpdate`, `ProjectDelete` - Views for manipulating a project.
 * `add_worker` - Assigns a "Free Agent" to a given project, among other things.
-* `UserSerializer` - RESTful GET endpoint for retreiving a list of usernames.
+* `UserSerializer` - RESTful GET endpoint for retrieving a list of usernames.
 * `ProjectCreateAPI`, `ProjectListAPI` - RESTful endpoints for manipulating projects.
 
 ## AJAX
 
-There is a Javascript function based on JQuery to checking whether username had been taken. This function contains an AJAX to get existing username from Restful API which ‘url’ is /freeAgentApp/serializerUsername. The AJAX use get method and JSON datatype. After matching with the typed username, a remind message will be shown through JQuery. 
+There is a Javascript function based on JQuery to checking whether username had been taken. This function contains an AJAX to get existing username from Restful API which ‘url’ is /freeAgentApp/serializerUsername. The AJAX use get method and JSON datatype. After matching with the typed username, a remind message will be shown through JQuery.
 
 ## RESTful API
 
