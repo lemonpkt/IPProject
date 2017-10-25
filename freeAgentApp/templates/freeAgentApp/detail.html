@@ -37,7 +37,11 @@
             {% elif project.status == 3%}
                 <h6>
                     Client's Work:
-                    <a href="{{ project.client_upload.url }}" >{{ project.client_upload}}</a>
+                    {% if project.client_upload%}
+                        <a href="{{ project.client_upload.url }}" >{{ project.client_upload}}</a>
+                    {% else %}
+                        None
+                    {% endif %}
                 </h6>
                 <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline" enctype="multipart/form-data">
                     {%csrf_token%}

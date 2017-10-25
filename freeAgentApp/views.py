@@ -19,7 +19,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 def add_worker(request):
     if request.method == "POST":    
         if 'add' in request.POST:
-                      
             user = request.user
             project = Project.objects.get(id=request.POST["project.id"])
             if project.status == 1:
@@ -33,8 +32,9 @@ def add_worker(request):
 
         if 'Accept' in request.POST:
             project = Project.objects.get(id=request.POST["project.id"])
-            project.status = 3
-            project.save()
+            if project.status == 2:
+                project.status = 3
+                project.save()
             return redirect('freeAgentApp:detail', project.id)
         elif 'Refuse' in request.POST:
             project = Project.objects.get(id=request.POST["project.id"])
