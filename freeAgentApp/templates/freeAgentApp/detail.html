@@ -37,27 +37,42 @@
             {% elif project.status == 3%}
                 <h6>
                     Client's Work:
-                    {{ client_upload }}
+                    <a href="{{ project.client_upload.url }}" >{{ project.client_upload}}</a>
                 </h6>
-                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline">
+                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline" enctype="multipart/form-data">
                     {%csrf_token%}
                     <input  name = "project.id" type="hidden" value="{{project.id }}" />
                     <button type="submit" name ="ConfirmWork" class="btn btn-default btn-sm"> Confirm Work</button>
                 </form>
+            {% elif project.status == 4 %}
+                <h6>
+                    Client's Work:
+                    <a href="{{ project.client_upload.url }}" download="{{ project.title }}">{{ project.client_upload}}</a>
+                </h6>
             {% endif %}
         {% endif %}
         {% if user.Identification == 'F' %}
             {% if project.status == 3 %}
+
+                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style="display: inline" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <h6>
+                    Client's Work:
+                    {{ project.client_upload }}
+                        <div>
+                            <a href="{% url 'freeAgentApp:Upload' project.id %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;UpLoad
+                        </a>
+                        </div>
+                    </h6>
+                    <input  name = "project.id" type="hidden" value="{{project.id }}" />
+                    <button name ="UploadWork" class="btn btn-default btn-sm"> Upload Work</button>
+                </form>
+            {% elif project.status == 4 %}
                 <h6>
                     Client's Work:
-                    {{ client_upload }}
-                    <input type="file" style=""/>
+                    <a href="{{ project.client_upload.url }}" download="{{ project.title }}">{{ project.client_upload}}</a>
                 </h6>
-                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline">
-                    {%csrf_token%}
-                    <input  name = "project.id" type="hidden" value="{{project.id }}" />
-                    <button type="submit" name ="UploadWork" class="btn btn-default btn-sm"> Upload Work</button>
-                </form>
             {% endif %}
         {% endif %}
     </div>

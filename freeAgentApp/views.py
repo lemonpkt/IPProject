@@ -42,6 +42,18 @@ def add_worker(request):
             project.worker = None
             project.save()
             return redirect('freeAgentApp:detail', project.id)
+
+        if 'UploadWork' in request.POST:
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.save()
+            return redirect('freeAgentApp:detail', project.id)
+
+        if 'ConfirmWork' in request.POST:
+            project = Project.objects.get(id=request.POST["project.id"])
+            project.status = 4
+            project.save()
+            return redirect('freeAgentApp:detail', project.id)
+
     return redirect('freeAgentApp:index')
  
 
@@ -135,6 +147,11 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
 
         # Required by the CreateView view to return the reponse objects
         return response
+
+
+class ProjectUpload(LoginRequiredMixin, UpdateView):
+    model = Project
+    fields = ['client_upload']
 
 
 class ProjectUpdate(UpdateView):

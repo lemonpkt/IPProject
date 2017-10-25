@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # /freeAgentApp/project/add/
     url(r'project/add/$', views.ProjectCreate.as_view(), name='createProject'),
+    # /freeAgentApp/upload
+    url(r'project/upload/(?P<pk>[\w-]+)$', views.ProjectUpload.as_view(), name='Upload'),
     # /freeAgentApp/project/2/
     url(r'project/(?P<pk>[0-9]+)/$', views.ProjectUpdate.as_view(), name='updateProject'),
     # /freeAgentApp/project/2/delete/
