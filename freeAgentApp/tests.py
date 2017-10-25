@@ -17,6 +17,7 @@ class ProjectModelTests(TestCase):
         response = self.client.get(reverse('freeAgentApp:index'))
         self.assertEqual(response.status_code, 302)
 
+
 class ClientCreateProjectTest(TestCase):
     def setUp(self):
         # Create a test user
@@ -41,5 +42,3 @@ class ClientCreateProjectTest(TestCase):
 
         # Check that there is a new Project in the db pointing to self.user
         self.assertEqual(len(Project.objects.filter(client=self.user)), 1)
-
-
