@@ -55,7 +55,7 @@ A brief overview of the views in `views.py` and what they do:
 * `Login` - Login page.
 * `DetailView` - Displays detailed information about a project.
 * `ProjectCreate`, `ProjectUpdate`, `ProjectDelete` - Views for manipulating a project.
-* `add_worker` - Assigns a "Free Agent" to a given project.
+* `add_worker` - Assigns a "Free Agent" to a given project, among other things.
 * `UserSerializer` - RESTful GET endpoint for retreiving a list of usernames.
 * `ProjectCreateAPI`, `ProjectListAPI` - RESTful endpoints for manipulating projects.
 
