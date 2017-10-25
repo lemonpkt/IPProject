@@ -75,3 +75,11 @@ In this project, there are four rest api built.
 User can check their relevant projects through this page, get the id for indicated project.
 
 * Manage project, must be authenticated and given the id, support GET, PUT, DELETE method, `/freeAgentApp/SerializeProject/manage/<id>`, user can modify the project (Update, Delete) through this site.
+
+## Javascript Libraries
+
+Two Javascript library used is jQuery and the Javascript framework used is Bootstrap. Both jQuery and Bootstrap are not hosted locally and instead source from content domain network. jQuery is needed for Bootstrap to work, and Bootstrap was used to design a clean and user-friendly interface for our website
+
+## Project Models
+
+Two models are used in this project: UserProfile, which contains information on each user, as well as the type of user: FreeAgent and Client; Project: which contains information about each individual project, such as title, description, cost, as well as users relevant to that project.
