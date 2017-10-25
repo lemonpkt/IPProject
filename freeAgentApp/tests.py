@@ -72,3 +72,31 @@ class ClientTests(TestCase):
 
         # Check that there is a new Project in the db pointing to self.user
         self.assertEqual(len(Project.objects.filter(client=self.user)), 1)
+
+
+class WorkerTests(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = UserProfile.objects.get_or_create(username='test_worker')[0]
+
+        # Create a logged-in client
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_accept_project(self):
+        """Checks that when a worker accepts a project they are added to it
+        in the database.
+
+        """
+
+        project = Project.objects.create(
+                title='My Project',
+                description='A description.',
+                cost=999.99)
+        project.save()
+
+        response = self.client.post(reverse('freeAgentApp:addWorker'),
+                {'add': '', 'project.id': project.id})
+
+        self.assertEqual(Project.objects.get(id=project.id).worker, self.user)
+
