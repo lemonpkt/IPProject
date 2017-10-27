@@ -88,7 +88,16 @@ class IndexView(LoginRequiredMixin, generic.ListView ):
         else:
             return Project.objects.all()
     
-      
+class HomePageView(LoginRequiredMixin, generic.ListView ):
+    template_name='freeAgentApp/homePage.html'
+
+    def get_queryset(self):
+        # Filter by username if the type of user is client
+        user = self.request.user
+        if user.Identification == 'C':
+            return Project.objects.filter(client=user)
+        else:
+            return Project.objects.all()
       
 class WorkerView(LoginRequiredMixin, generic.ListView ):
     print("Debug1")
