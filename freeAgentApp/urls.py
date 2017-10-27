@@ -32,15 +32,14 @@ urlpatterns = [
     url(r'^serializerUsername', views.UserSerializer.as_view(), name='userNameSerializer'),
     # ／freeAgentApp/SerializeProject/create
     url(r'^serializerProject/create', views.ProjectCreateAPI.as_view(), name='ProjectCreateSerializer'),
-
     # ／freeAgentApp/SerializeProject/manage
     url(r'^serializerProject/manage/(?P<pk>[0-9]+)/',
         views.ProjectUpdateAndDeleteAPI.as_view(),
         name='ProjectManageSerializer'),
-
+    # /freeAgentApp/search
+    url(r'^results/$', views.search, name='search'),
     # ／freeAgentApp/SerializeProject/list
     url(r'^serializerProject/list', views.ProjectListAPI.as_view(), name='ProjectListSerializer'),
-
 
 ]
 
