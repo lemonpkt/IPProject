@@ -3,7 +3,7 @@ from .models import Project,Review,UserProfile
 from django.views.generic import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, render_to_response
 from django.contrib.auth import authenticate,login
 #from django.views.generic import View
 from .forms import UserForm, LoginForm
@@ -15,7 +15,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializer import ProjectSerializer,ReviewSerializer, UserProfileSerializer
 from django.contrib.auth.models import User,AbstractUser
-
+import re
+from django.db.models import Q
    
 def add_worker(request):
     if request.method == "POST":    
@@ -31,14 +32,7 @@ def add_worker(request):
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
-    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
-        and grouping quoted words together.
-        Example:
-
-        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
-        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
-
-    '''
+    ''' Splits the query string into invidual keywords, getting rid of unecessary spaces '''
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 def get_query(query_string, search_fields):
@@ -67,15 +61,14 @@ def search(request):
     found_entries = None
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
-
-        entry_query = get_query(query_string, ['title', 'body',])
-
-        found_entries = Entry.objects.filter(entry_query).order_by('-pub_date')
-
-    return render_to_response('freeAgentApp/results.html',
-                          { 'query_string': query_string, 'found_entries': found_entries },
-                          context_instance=RequestContext(request))    
-
+        print ('Query String is ' + query_string)
+        entry_query = get_query(query_string, ['title','description',])
+        found_entries = Project.objects.filter(entry_query).order_by('id')
+        print (found_entries)
+        
+    return render(request,'freeAgentApp/results.html',{'found_entries':found_entries})
+                                         
+                          
 class UserFormView(View):
     form_class=UserForm
     template_name='freeAgentApp/registration.html'
