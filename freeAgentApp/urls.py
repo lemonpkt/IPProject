@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'project/(?P<pk>[0-9]+)/delete/$',views.ProjectDelete.as_view(), name='deleteProject'),
     url(r'^workerIndex/$',views.WorkerView.as_view(), name='workerIndex'),
     url(r'^addWorker/$',views.add_worker, name='addWorker'),
+    url(r'^results/$',views.search,name='search'),
 ]
 
 
