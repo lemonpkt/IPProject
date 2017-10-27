@@ -66,7 +66,7 @@ def search(request):
         found_entries = Project.objects.filter(entry_query).order_by('id')
         print (found_entries)
         
-    return render(request,'freeAgentApp/results.html',{'found_entries':found_entries})
+    return render(request,'freeAgentApp/results.html',{'found_entries':found_entries, 'query_string':query_string,})
                                          
                           
 class UserFormView(View):
