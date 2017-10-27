@@ -25,7 +25,9 @@ urlpatterns = [
     url(r'^workerIndex/$',views.WorkerView.as_view(), name='workerIndex'),
     url(r'^addWorker/$',views.add_worker, name='addWorker'),
     #/freeAgentApp/homePage
-    url(r'^homePage/$', views.HomePageView.as_view(), name='homePage'),
+    url(r'^homepage/$', views.HomePageView.as_view(), name='homepage_loggedout'),
+    #/freeAgentApp/homePage#
+    url(r'^homepage#/$', views.HomePageViewAsLoggedIn.as_view(), name='homepage'),
 
 ]
 

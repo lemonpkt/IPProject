@@ -1,0 +1,111 @@
+{% extends 'freeAgentApp/base_loggedout.html' %}
+{% block title %} All Projects {% endblock %}
+
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Contents:</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <p><a href="#L1">About Us...</a></p>
+        <p><a href="#L2">As a Client</a></p>
+        <p><a href="#L3">As a Worker</a></p>
+        <p><a href="#L4">Contact</a></p>
+      </ul><br>
+
+    </div>
+
+    <div class="col-sm-9">
+      <h2 id="L1">About Us...</h2>
+      <h5><span class="label label-danger">What we do</span></h5><br>
+      <p>
+        There are people who don’t know how to code and may be looking for someone who does. Conversely, there are people who know how to code, and may be looking for opportunities to put their coding expertise to good use, and for money! <br>
+        Our goal is to create an environment that brings people with these coinciding goals together.<br><br>
+        Who is FreeAgent for?<br>
+        Everyone! Whether you know how to code or are looking for a coder, FreeAgent is the place for you!<br>
+        We simply provide a place where these two types of people can meet for their ideal exchange.
+
+      </p>
+      <br><br>
+      <hr>
+      <br><br>
+      <h2 id="L2">As a Client</h2>
+      <h5><span class="label label-primary">Outsourcing coders</span></h5><br>
+      <p>
+        Are you an aspiring entrepreneur and need code written?<br>
+        Here at FreeAgent, you can make strategic partnerships with coders and bring your big ideas to life!<br>
+
+      </p>
+      <br><br>
+      <hr>
+      <br><br>
+      <h2 id="L3">As a Worker</h2>
+      <h5><span class="label label-success">Getting paid to code</span></h5><br>
+      <p>
+        Do you enjoy coding and want to get paid doing it?<br>
+        By joining FreeAgent, you are exposing yourself to great opporotunities to network with businessmen and other coders.<br>
+        You could put your technical skills to good use, all the while gettting paid to do so!<br>
+
+      </p>
+            <br><br>
+      <hr>
+      <br><br>
+      <h2 id="L4">Contact</h2>
+      <h5><span class="label label-warning">For enquiries</span></h5><br>
+      <p>
+        enquiries@FreeAgent.com<br>
+        www.FreeAgent.com
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid">
+  <p>Come to the dark side........ ;)</p>
+</footer>
+
+</body>
+</html>
+
+
+{% endblock %}
