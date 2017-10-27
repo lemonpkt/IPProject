@@ -10,9 +10,28 @@
 
 {% for project in found_entries %}
 
-<div>Title : {{ project.title }} </div>
-<div>Description : {{ project.description }} </div>
-
+<ul>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <div class="container">
+                <h4>
+                    <a href="{% url 'freeAgentApp:detail' project.id %}">
+                        {{ project.title }}
+                    </a>
+                </h4>
+                <h6>
+                    Description : {{ project.description }}
+                </h6>
+                <form action="{% url 'freeAgentApp:addWorker'  %}" method="post" style=" display: inline;">
+                    {%csrf_token%}
+                    <input id="project.id" name = "project.id" type="hidden" value="{{project.id }}">
+                    <button type="submit" name ="add" class="btn btn-default btn-sm"> Add
+                        <span class="glyphicon glyphicon-plus"></span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</ul>
 
 {% endfor %}
 
