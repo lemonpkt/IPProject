@@ -171,20 +171,12 @@ class IndexView(LoginRequiredMixin, generic.ListView):
             return Project.objects.all()
 
 
-class HomePageViewAsLoggedIn(LoginRequiredMixin, generic.ListView ):
-    template_name='freeAgentApp/homepage.html'
-
-    def get_queryset(self):
-        # Filter by username if the type of user is client
-        user = self.request.user
-        if user.Identification == 'C':
-            return Project.objects.filter(client=user)
-        else:
-            return Project.objects.all()
+class HomePageViewAuthTrue(LoginView):
+    template_name = 'freeAgentApp/homeAuthTrue.html'
 
 
-class HomePageView(LoginView):
-    template_name='freeAgentApp/homepage_loggedout.html'
+class HomePageViewAuthFalse(LoginView):
+    template_name = 'freeAgentApp/homeAuthFalse.html'
 
 
 class WorkerView(LoginRequiredMixin, generic.ListView):

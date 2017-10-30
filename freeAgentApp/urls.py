@@ -41,9 +41,9 @@ urlpatterns = [
     # ／freeAgentApp/SerializeProject/list
     url(r'^serializerProject/list', views.ProjectListAPI.as_view(), name='ProjectListSerializer'),
     # /freeAgentApp/homePage
-    url(r'^homepage/$', views.HomePageView.as_view(), name='homepage_loggedout'),
+    url(r'^homepage/$', views.HomePageViewAuthFalse.as_view(), name='homeAuthFalse'),
     # /freeAgentApp/homePage#
-    url(r'^homepage#/$', views.HomePageViewAsLoggedIn.as_view(), name='homepage'),
+    url(r'^homepage#/$', views.HomePageViewAuthTrue.as_view(), name='homeAuthTrue'),
 
 ]
 
