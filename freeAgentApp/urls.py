@@ -40,10 +40,10 @@ urlpatterns = [
     url(r'^results/$', views.search, name='search'),
     # ／freeAgentApp/SerializeProject/list
     url(r'^serializerProject/list', views.ProjectListAPI.as_view(), name='ProjectListSerializer'),
+    # /freeAgentApp/homePage-public
+    url(r'^homepage-public/$', views.HomePageViewAuthFalse.as_view(), name='homeAuthFalse'),
     # /freeAgentApp/homePage
-    url(r'^homepage/$', views.HomePageViewAuthFalse.as_view(), name='homeAuthFalse'),
-    # /freeAgentApp/homePage#
-    url(r'^homepage#/$', views.HomePageViewAuthTrue.as_view(), name='homeAuthTrue'),
+    url(r'^homepage/$', views.HomePageViewAuthTrue.as_view(), name='homeAuthTrue'),
 
 ]
 
