@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 app_name='freeAgentApp'
 
 urlpatterns = [
-    
+
     # /freeAgentApp/
     url(r'^$', views.IndexView.as_view(), name='index'),
     # /freeAgentApp/register
@@ -40,6 +40,10 @@ urlpatterns = [
     url(r'^results/$', views.search, name='search'),
     # ／freeAgentApp/SerializeProject/list
     url(r'^serializerProject/list', views.ProjectListAPI.as_view(), name='ProjectListSerializer'),
+    # /freeAgentApp/homePage-public
+    url(r'^homepage-public/$', views.HomePageViewAuthFalse.as_view(), name='homeAuthFalse'),
+    # /freeAgentApp/homePage
+    url(r'^homepage/$', views.HomePageViewAuthTrue.as_view(), name='homeAuthTrue'),
 
 ]
 

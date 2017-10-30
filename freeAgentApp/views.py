@@ -2,6 +2,7 @@ from django.views import generic
 from .models import Project, Review, UserProfile
 from django.views.generic import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, BaseFormView
+from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login
@@ -156,7 +157,7 @@ class UserFormView(View):
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
-    """Home page. Displays a list of created projects for an End Client, and
+    """Displays a list of created projects for an End Client, and
     a list of all projects to a Free Agent.
 
     """
@@ -169,6 +170,16 @@ class IndexView(LoginRequiredMixin, generic.ListView):
             return Project.objects.filter(client=user)
         else:
             return Project.objects.all()
+
+
+class HomePageViewAuthTrue(LoginRequiredMixin, TemplateView):
+    """Logged-in home page."""
+    template_name = 'freeAgentApp/homeAuthTrue.html'
+
+
+class HomePageViewAuthFalse(TemplateView):
+    """Logged-out home page."""
+    template_name = 'freeAgentApp/homeAuthFalse.html'
 
 
 class WorkerView(LoginRequiredMixin, generic.ListView):
