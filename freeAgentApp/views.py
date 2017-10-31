@@ -170,7 +170,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         if user.Identification == 'C':
             return Project.objects.filter(client=user)
         else:
-            return Project.objects.all()
+            return Project.objects.filter(status=1)
 
 
 class HomePageViewAuthTrue(LoginRequiredMixin, TemplateView):
