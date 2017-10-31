@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-LOGIN_URL = '/freeAgentApp/login'
+LOGIN_URL = '/freeAgentApp/homepage-public'
 LOGIN_REDIRECT_URL = reverse_lazy('freeAgentApp:homeAuthTrue')
 LOGOUT_REDIRECT_URL = reverse_lazy('freeAgentApp:homeAuthFalse')
 

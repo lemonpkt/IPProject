@@ -1,0 +1,65 @@
+IPProject>python manage.py sqlmigrate freeAgent 0001
+BEGIN;
+--
+-- Create model Member
+--
+CREATE TABLE "freeAgent_member" ("user_name" varchar(50) NOT NULL PRIMARY KEY, "email" varchar(50) NOT NULL UNIQUE, "password" varchar(50) NOT NULL, "category" bool NOT NULL, "first_name" varchar(30) NOT NULL, "last_name" varchar(30) NOT NULL);
+--
+-- Create model Project
+--
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL);
+--
+-- Create model Review
+--
+CREATE TABLE "freeAgent_review" ("project_id_id" integer NOT NULL PRIMARY KEY REFERENCES "freeAgent_project" ("project_id"), "project_rating" integer NOT NULL);
+--
+-- Add field client to project
+--
+ALTER TABLE "freeAgent_project" RENAME TO "freeAgent_project__old";
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL, "client_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"));
+INSERT INTO "freeAgent_project" ("project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id") SELECT "project_id", "status", "description", "title", "cost", "pub_date", "code", NULL FROM "freeAgent_project__old";
+DROP TABLE "freeAgent_project__old";
+CREATE INDEX "freeAgent_project_client_id_970a361d" ON "freeAgent_project" ("client_id");
+--
+-- Add field worker to project
+--
+ALTER TABLE "freeAgent_project" RENAME TO "freeAgent_project__old";
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL, "client_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"), "worker_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"));
+INSERT INTO "freeAgent_project" ("project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id", "worker_id") SELECT "project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id", NULL FROM "freeAgent_project__old";
+DROP TABLE "freeAgent_project__old";
+CREATE INDEX "freeAgent_project_client_id_970a361d" ON "freeAgent_project" ("client_id");
+CREATE INDEX "freeAgent_project_worker_id_42195c94" ON "freeAgent_project" ("worker_id");
+COMMIT;
+
+C:\Users\The Captain\Documents\University\2017 Semester 2\ELEC3609 - Internet Platforms\IPProject>python manage.py sqlmigrate freeAgent 0001
+BEGIN;
+--
+-- Create model Member
+--
+CREATE TABLE "freeAgent_member" ("user_name" varchar(50) NOT NULL PRIMARY KEY, "email" varchar(50) NOT NULL UNIQUE, "password" varchar(50) NOT NULL, "category" bool NOT NULL, "first_name" varchar(30) NOT NULL, "last_name" varchar(30) NOT NULL);
+--
+-- Create model Project
+--
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL);
+--
+-- Create model Review
+--
+CREATE TABLE "freeAgent_review" ("project_id_id" integer NOT NULL PRIMARY KEY REFERENCES "freeAgent_project" ("project_id"), "project_rating" integer NOT NULL);
+--
+-- Add field client to project
+--
+ALTER TABLE "freeAgent_project" RENAME TO "freeAgent_project__old";
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL, "client_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"));
+INSERT INTO "freeAgent_project" ("project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id") SELECT "project_id", "status", "description", "title", "cost", "pub_date", "code", NULL FROM "freeAgent_project__old";
+DROP TABLE "freeAgent_project__old";
+CREATE INDEX "freeAgent_project_client_id_970a361d" ON "freeAgent_project" ("client_id");
+--
+-- Add field worker to project
+--
+ALTER TABLE "freeAgent_project" RENAME TO "freeAgent_project__old";
+CREATE TABLE "freeAgent_project" ("project_id" integer NOT NULL PRIMARY KEY, "status" integer NOT NULL, "description" varchar(300) NOT NULL, "title" varchar(100) NOT NULL, "cost" decimal NOT NULL, "pub_date" datetime NOT NULL, "code" varchar(100) NOT NULL, "client_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"), "worker_id" varchar(50) NOT NULL REFERENCES "freeAgent_member" ("user_name"));
+INSERT INTO "freeAgent_project" ("project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id", "worker_id") SELECT "project_id", "status", "description", "title", "cost", "pub_date", "code", "client_id", NULL FROM "freeAgent_project__old";
+DROP TABLE "freeAgent_project__old";
+CREATE INDEX "freeAgent_project_client_id_970a361d" ON "freeAgent_project" ("client_id");
+CREATE INDEX "freeAgent_project_worker_id_42195c94" ON "freeAgent_project" ("worker_id");
+COMMIT;
