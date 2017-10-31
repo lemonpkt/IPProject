@@ -11,6 +11,7 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, C
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import permissions
+from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from .serializer import ProjectSerializer, ProjectCreateSerializer, UserProfileSerializer
@@ -277,7 +278,10 @@ class ProjectCreateAPI(CreateAPIView):
     permissions_class = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        if self.request.user.Identification == 'C':
+            serializer.save(client=self.request.user)
+        else:
+            raise ValidationError('You are not allowed to create a project!')
 
 
 class ProjectUpdateAndDeleteAPI(RetrieveUpdateDestroyAPIView):
